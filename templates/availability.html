@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Availability - Restaurant Employee Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        .custom-control-label {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .custom-control-label:hover {
+            background-color: #e9ecef;
+        }
+        .custom-control-input:checked ~ .custom-control-label {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .btn-custom {
+            transition: all 0.3s ease;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .animate-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container animate-in">
+        <h2 class="text-center mb-4">Welcome, {{ user_full_name }}</h2>
+        <h3 class="text-center mb-4">Enter your availability</h3>
+        <form id="availabilityForm" method="POST">
+            <div class="row">
+                {% for day in days %}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="{{ day }}" name="{{ day }}" {% if availabilities[day] != 'x' %}checked{% endif %}>
+                            <label class="custom-control-label" for="{{ day }}">
+                                <i class="far fa-calendar-alt mr-2"></i>{{ day }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-custom mt-4">
+                <i class="fas fa-save mr-2"></i>Update Availability
+            </button>
+        </form>
+        <div class="mt-4 text-center">
+            <a href="{{ url_for('export') }}" class="btn btn-secondary btn-custom">
+                <i class="fas fa-file-excel mr-2"></i>Export to Excel
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-custom ml-2">
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+            </a>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        $('.custom-control-input').change(function() {
+            $(this).closest('.custom-control-label').toggleClass('checked');
+        });
+
+        $('#availabilityForm').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{ url_for('availability') }}",
+                type: "POST",
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'https://www.cafedelsol.de/de/';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error occurred while updating availability. Please try again.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

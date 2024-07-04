@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Portal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-custom {
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #007bff;
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover .feature-icon {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#"> Employee Portal</a>
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+        <a class="nav-item nav-link" href="{{ url_for('signup') }}">Sign Up</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-content">
+      <h1 class="display-4 mb-4">Welcome to Your Employee Portal</h1>
+      <p class="lead mb-4">Manage your schedule, update availability, and stay connected with your team.</p>
+      <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg btn-custom">Get Started</a>
+    </div>
+  </header>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="feature text-center">
+            <i class="fas fa-calendar-alt feature-icon"></i>
+            <h3>Manage Availability</h3>
+            <p>Easily update your work availability for each week.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="feature text-center">
+            <i class="fas fa-clock feature-icon"></i>
+            <h3>Track Hours</h3>
+            <p>Keep track of your work hours and shifts.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="feature text-center">
+            <i class="fas fa-users feature-icon"></i>
+            <h3>Team Communication</h3>
+            <p>Stay connected with your colleagues and management.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-light py-4 mt-auto">
+    <div class="container text-center">
+      <p>&copy; 2024 Restaurant Employee Portal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

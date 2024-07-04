@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Restaurant Employee Portal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Restaurant Employee Portal</a>
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body">
+            <h2 class="text-center mb-4">Sign Up</h2>
+            <form method="POST">
+              <div class="form-group">
+                <label for="firstname"><i class="fas fa-user"></i> First Name</label>
+                <input type="text" id="firstname" name="firstname" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="lastname"><i class="fas fa-user"></i> Last Name</label>
+                <input type="text" id="lastname" name="lastname" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="employment_type"><i class="fas fa-briefcase"></i> Employment Type</label>
+                <select id="employment_type" name="employment_type" class="form-control" required>
+                  <option value="">Select Employment Type</option>
+                  <option value="fulltime">Full Time</option>
+                  <option value="parttime">Part Time</option>
+                  <option value="temporary">Temporary</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </form>
+            <div class="text-center mt-3">
+              <a href="{{ url_for('login') }}">Already have an account? Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-light py-4 mt-5">
+    <div class="container text-center">
+      <p>&copy; 2024 Restaurant Employee Portal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
